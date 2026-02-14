@@ -2,6 +2,8 @@
 
 Visual session indicator for tmux status bar. Shows all sessions as dots (●○○) with the current session highlighted.
 
+![Demo](demo.gif)
+
 ## Why?
 
 If you use multiple tmux sessions and frequently switch between them (e.g., with `Alt+[` and `Alt+]`), this gives you instant visual feedback about:
