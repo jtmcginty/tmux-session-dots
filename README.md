@@ -55,22 +55,28 @@ set -g @session-dots-separator "  "  # Just spaces
 
 ### Manual placement
 
-If you want full control over placement in your status bar, don't use the plugin loader. Instead, directly call the script:
+If you want full control over placement in your status bar, don't use the plugin loader. Instead, directly call the script with the current session:
 
 ```bash
-set -g status-right "#[fg=#f5c2e7]#(~/tmux-session-dots/scripts/session-dots.sh) | %H:%M"
+set -g status-right "#[fg=#f5c2e7]#(~/tmux-session-dots/scripts/session-dots.sh '#S') | %H:%M"
+```
+
+And add the hook for instant updates:
+
+```bash
+set-hook -g client-session-changed 'refresh-client -S'
 ```
 
 ## How it works
 
-- `●` = Current/attached session
+- `●` = Current session
 - `○` = Other sessions
-- Uses 0.5s caching to reduce overhead
-- Updates automatically with tmux status refresh
+- Uses tmux hooks for instant updates on session change
+- Correctly identifies current session (not just attached sessions)
 
-## Performance note
+## Performance
 
-Like all tmux status bar scripts that run shell commands, there's a slight delay when updating. The script uses caching to minimize this, but it won't be as instant as native tmux format strings. This is a known limitation of tmux's `#()` shell command execution.
+The plugin uses `client-session-changed` hooks to trigger instant status bar updates when switching sessions. This makes the indicator update immediately, similar to native tmux window highlighting.
 
 ## License
 
