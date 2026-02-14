@@ -2,8 +2,6 @@
 
 Visual session indicator for tmux status bar. Shows all sessions as dots (●○○) with the current session highlighted.
 
-![Demo](https://via.placeholder.com/600x100/191724/f5c2e7?text=●○○○)
-
 ## Why?
 
 If you use multiple tmux sessions and frequently switch between them (e.g., with `Alt+[` and `Alt+]`), this gives you instant visual feedback about:
@@ -65,12 +63,12 @@ set -g status-right "#[fg=#f5c2e7]#(~/tmux-session-dots/scripts/session-dots.sh)
 
 - `●` = Current/attached session
 - `○` = Other sessions
-- Uses 0.5s caching for performance
+- Uses 0.5s caching to reduce overhead
 - Updates automatically with tmux status refresh
 
-## Performance
+## Performance note
 
-The script uses caching to avoid running `tmux list-sessions` on every status bar refresh. This keeps it snappy even with frequent updates.
+Like all tmux status bar scripts that run shell commands, there's a slight delay when updating. The script uses caching to minimize this, but it won't be as instant as native tmux format strings. This is a known limitation of tmux's `#()` shell command execution.
 
 ## License
 
