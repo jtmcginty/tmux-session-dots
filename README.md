@@ -21,6 +21,12 @@ Add to your `~/.tmux.conf`:
 set -g @plugin 'jtmcginty/tmux-session-dots'
 ```
 
+Then add `#{session_dots}` wherever you want in your status bar:
+
+```bash
+set -g status-right "#{session_dots} | %H:%M %p"
+```
+
 Press `prefix + I` to install.
 
 ### Manual
@@ -33,7 +39,26 @@ Add to your `~/.tmux.conf`:
 
 ```bash
 run-shell ~/tmux-session-dots/session-dots.tmux
+set -g status-right "#{session_dots} | %H:%M"
 ```
+
+## Usage
+
+Simply add `#{session_dots}` anywhere in your `status-right` or `status-left`:
+
+```bash
+# At the beginning
+set -g status-right "#{session_dots} | %H:%M %p"
+
+# In the middle
+set -g status-right "%H:%M | #{session_dots} | #H"
+
+# Multiple places
+set -g status-left "#{session_dots}"
+set -g status-right "#{session_dots} | %H:%M"
+```
+
+The plugin handles all formatting - you just add separators and spacing as you prefer.
 
 ## Configuration
 
@@ -43,6 +68,7 @@ Default is Catppuccin pink (`#f5c2e7`). Customize with:
 
 ```bash
 set -g @session-dots-color "#89b4fa"  # Catppuccin blue
+set -g status-right "#{session_dots} | %H:%M"
 ```
 
 ### Separator
@@ -53,19 +79,7 @@ Default is ` | `. Customize with:
 set -g @session-dots-separator "  "  # Just spaces
 ```
 
-### Manual placement
-
-If you want full control over placement in your status bar, don't use the plugin loader. Instead, directly call the script with the current session:
-
-```bash
-set -g status-right "#[fg=#f5c2e7]#(~/tmux-session-dots/scripts/session-dots.sh '#S') | %H:%M"
-```
-
-And add the hook for instant updates:
-
-```bash
-set-hook -g client-session-changed 'refresh-client -S'
-```
+Note: Separator is only used when auto-placement is enabled (default). With manual placement, you control all formatting.
 
 ## How it works
 

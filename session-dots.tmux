@@ -2,16 +2,46 @@
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Get user's color preference or use default
-dot_color=$(tmux show-option -gqv "@session-dots-color")
-dot_color=${dot_color:-"#f5c2e7"}  # Default Catppuccin pink
+get_tmux_option() {
+    local option=$1
+    local default_value=$2
+    local option_value=$(tmux show-option -gqv "$option")
+    if [ -z "$option_value" ]; then
+        echo "$default_value"
+    else
+        echo "$option_value"
+    fi
+}
 
-# Get separator preference or use default
-separator=$(tmux show-option -gqv "@session-dots-separator")
-separator=${separator:-" | "}
+set_tmux_option() {
+    local option=$1
+    local value=$2
+    tmux set-option -gq "$option" "$value"
+}
 
-# Add hook for instant updates on session change
-tmux set-hook -g client-session-changed 'refresh-client -S'
+do_interpolation() {
+    local all_interpolated="$1"
+    local dot_color=$(get_tmux_option "@session-dots-color" "#f5c2e7")
+    local placeholder="\#{session_dots}"
+    local script="#[fg=$dot_color]#($CURRENT_DIR/scripts/session-dots.sh '#S')#[default]"
+    all_interpolated=${all_interpolated//$placeholder/$script}
+    echo "$all_interpolated"
+}
 
-# Interpolate the dots into status-right (pass current session as argument)
-tmux set-option -gaq status-right "#[fg=$dot_color]#($CURRENT_DIR/scripts/session-dots.sh '#S')#[default]$separator"
+update_tmux_option() {
+    local option="$1"
+    local option_value="$(get_tmux_option "$option")"
+    local new_option_value="$(do_interpolation "$option_value")"
+    set_tmux_option "$option" "$new_option_value"
+}
+
+main() {
+    # Add hook for instant updates on session change
+    tmux set-hook -g client-session-changed 'refresh-client -S'
+    
+    # Interpolate #{session_dots} in status-right and status-left
+    update_tmux_option "status-right"
+    update_tmux_option "status-left"
+}
+
+main
