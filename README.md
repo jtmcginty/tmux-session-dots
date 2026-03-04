@@ -81,6 +81,18 @@ set -g @session-dots-separator "  "  # Just spaces
 
 Note: Separator is only used when auto-placement is enabled (default). With manual placement, you control all formatting.
 
+## Recommended: Quick Session Switching
+
+This plugin pairs well with keybindings for cycling through sessions. Add these to your `~/.tmux.conf` to switch sessions with `Option + [` and `Option + ]`:
+
+```bash
+# Previous/next session with Option + brackets
+bind-key -n M-[ switch-client -p
+bind-key -n M-] switch-client -n
+```
+
+The dots update instantly as you switch, giving you a visual indicator of where you are.
+
 ## How it works
 
 - `●` = Current session
