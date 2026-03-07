@@ -24,7 +24,15 @@ Choose any characters for the active and inactive states:
 | `★` | `☆` | `☆★☆☆` |
 | `◆` | `◇` | `◇◇◆◇` |
 | `┃` | `╎` | `╎╎┃╎` |
+| 👁️ | `·` | `👁️···` `·👁️··` `··👁️·` `···👁️` |
+| 🌕 | 🌑 | `🌕🌑🌑🌑` `🌑🌕🌑🌑` `🌑🌑🌕🌑` `🌑🌑🌑🌕` |
+| 🔥 | 🪵 | `🔥🪵🪵🪵` `🪵🔥🪵🪵` `🪵🪵🔥🪵` `🪵🪵🪵🔥` |
+| 🌞 | 🌚 | `🌞🌚🌚🌚` `🌚🌞🌚🌚` `🌚🌚🌞🌚` `🌚🌚🌚🌞` |
+| ⚡ | `·` | `⚡···` `·⚡··` `··⚡·` `···⚡` |
+| 👾 | `·` | `👾···` `·👾··` `··👾·` `···👾` |
+| 🦆 | `·` | `🦆···` `·🦆··` `··🦆·` `···🦆` |
 
+![moon](assets/preview-moon.png)
 ![dots](assets/preview-dots.png)
 ![dots-small](assets/preview-dots-small.png)
 ![blocks](assets/preview-blocks.png)
