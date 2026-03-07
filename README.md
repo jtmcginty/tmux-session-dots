@@ -76,9 +76,22 @@ Some popular combinations:
 | Active | Inactive | Preview |
 |--------|----------|---------|
 | `●` | `○` | `○●○○` (default) |
-| `▶` | `–` | `–▶––` |
 | `•` | `·` | `·•··` |
 | `■` | `□` | `□□■□` |
+| `▶` | `▷` | `▷▶▷▷` |
+| `★` | `☆` | `☆★☆☆` |
+| `◆` | `◇` | `◇◇◆◇` |
+| `┃` | `╎` | `╎╎┃╎` |
+
+**Screenshots:**
+
+![dots](assets/preview-dots.png)
+![dots-small](assets/preview-dots-small.png)
+![blocks](assets/preview-blocks.png)
+![arrows](assets/preview-arrows.png)
+![stars](assets/preview-stars.png)
+![diamonds](assets/preview-diamonds.png)
+![bars](assets/preview-bars.png)
 
 Want to try before you commit? Run the included preview script:
 
