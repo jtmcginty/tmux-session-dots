@@ -107,3 +107,10 @@ The plugin uses `client-session-changed` hooks to trigger instant status bar upd
 ## License
 
 MIT
+
+## Thanks & Support
+
+Loving the dots?
+If this plugin makes your tmux life better, please give it a ⭐ on GitHub — it helps more people discover it!
+
+Happy session switching!
