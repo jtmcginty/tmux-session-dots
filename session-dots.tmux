@@ -22,10 +22,12 @@ set_tmux_option() {
 
 do_interpolation() {
     local all_interpolated="$1"
-    local dot_color
+    local dot_color active inactive
     dot_color=$(get_tmux_option "@session-dots-color" "#f5c2e7")
+    active=$(get_tmux_option "@session-dots-active" "●")
+    inactive=$(get_tmux_option "@session-dots-inactive" "○")
     local placeholder="\#{session_dots}"
-    local script="#[fg=$dot_color]#($CURRENT_DIR/scripts/session-dots.sh '#S')#[default]"
+    local script="#[fg=$dot_color]#($CURRENT_DIR/scripts/session-dots.sh '#S' '$active' '$inactive')#[default]"
     all_interpolated=${all_interpolated//$placeholder/$script}
     echo "$all_interpolated"
 }
