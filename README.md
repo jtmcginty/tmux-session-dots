@@ -62,6 +62,30 @@ The plugin handles all formatting - you just add separators and spacing as you p
 
 ## Configuration
 
+### Symbols
+
+Default is `●` (active) and `○` (inactive). Swap them for anything you like:
+
+```bash
+set -g @session-dots-active "▶"
+set -g @session-dots-inactive "–"
+```
+
+Some popular combinations:
+
+| Active | Inactive | Preview |
+|--------|----------|---------|
+| `●` | `○` | `○●○○` (default) |
+| `▶` | `–` | `–▶––` |
+| `•` | `·` | `·•··` |
+| `■` | `□` | `□□■□` |
+
+Want to try before you commit? Run the included preview script:
+
+```bash
+./scripts/preview.sh "▶" "–"
+```
+
 ### Color
 
 Default is Catppuccin pink (`#f5c2e7`). Customize with:
@@ -95,8 +119,8 @@ The dots update instantly as you switch, giving you a visual indicator of where 
 
 ## How it works
 
-- `●` = Current session
-- `○` = Other sessions
+- Active symbol (default `●`) = Current session
+- Inactive symbol (default `○`) = Other sessions
 - Uses tmux hooks for instant updates on session change
 - Correctly identifies current session (not just attached sessions)
 
