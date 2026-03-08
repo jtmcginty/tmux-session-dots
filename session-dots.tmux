@@ -22,12 +22,16 @@ set_tmux_option() {
 
 do_interpolation() {
     local all_interpolated="$1"
-    local dot_color active inactive
+    local dot_color active inactive bell_enabled bell
     dot_color=$(get_tmux_option "@session-dots-color" "#f5c2e7")
     active=$(get_tmux_option "@session-dots-active" "●")
     inactive=$(get_tmux_option "@session-dots-inactive" "○")
+    bell_enabled=$(get_tmux_option "@session-dots-bell-enabled" "false")
+    bell=$(get_tmux_option "@session-dots-bell" "◉")
     local placeholder="\#{session_dots}"
-    local script="#[fg=$dot_color]#($CURRENT_DIR/scripts/session-dots.sh '#S' '$active' '$inactive')#[default]"
+    local bell_arg=""
+    [ "$bell_enabled" = "true" ] && bell_arg="$bell"
+    local script="#[fg=$dot_color]#($CURRENT_DIR/scripts/session-dots.sh '#S' '$active' '$inactive' '$bell_arg')#[default]"
     all_interpolated=${all_interpolated//$placeholder/$script}
     echo "$all_interpolated"
 }

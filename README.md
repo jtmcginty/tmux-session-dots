@@ -110,6 +110,19 @@ Default is Catppuccin pink (`#f5c2e7`). Customize with:
 set -g @session-dots-color "#89b4fa"  # Catppuccin blue
 ```
 
+### Bell indicator (optional)
+
+Disabled by default. Highlights sessions where a bell has fired in any window — useful if you wire up shell notifications for long-running commands.
+
+```bash
+set -g @session-dots-bell-enabled "true"
+set -g @session-dots-bell "◉"  # default
+```
+
+With bell enabled, three states are shown: active (`●`), bell (`◉`), inactive (`○`). Bell takes priority over inactive but never overrides the current session indicator.
+
+**Triggering bells:** tmux `monitor-bell` is on by default. Emit a bell from any command with `echo -e "\a"`, or wire it into your shell's `precmd` hook to fire automatically when long-running commands finish.
+
 ## Recommended: Quick Session Switching
 
 This plugin pairs well with keybindings for cycling through sessions. Add these to your `~/.tmux.conf` to switch sessions with `Option + [` and `Option + ]`:
