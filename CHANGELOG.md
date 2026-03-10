@@ -1,3 +1,9 @@
+## v0.4.0 (2026-03-09)
+
+### Feat
+
+- add bell-notify.zsh shell hook for automatic bell on long-running commands
+
 ## v0.3.0 (2026-03-08)
 
 ### Feat
