@@ -112,7 +112,7 @@ set -g @session-dots-color "#89b4fa"  # Catppuccin blue
 
 ### Bell indicator (optional)
 
-Disabled by default. Highlights sessions where a bell has fired in any window — useful if you wire up shell notifications for long-running commands.
+Disabled by default. Highlights sessions where a bell has fired in any window — most useful when paired with a shell hook that fires a bell after long-running commands complete.
 
 ```bash
 set -g @session-dots-bell-enabled "true"
@@ -121,7 +121,31 @@ set -g @session-dots-bell "◉"  # default
 
 With bell enabled, three states are shown: active (`●`), bell (`◉`), inactive (`○`). Bell takes priority over inactive but never overrides the current session indicator.
 
-**Triggering bells:** tmux `monitor-bell` is on by default. Emit a bell from any command with `echo -e "\a"`, or wire it into your shell's `precmd` hook to fire automatically when long-running commands finish.
+#### Automatic bell on long-running commands (recommended)
+
+The plugin ships with `bell-notify.zsh` — a small zsh snippet that fires a terminal bell whenever a command takes longer than 10 seconds. Source it in your `~/.zshrc`:
+
+```zsh
+# ~/.zshrc
+source ~/path/to/tmux-session-dots/bell-notify.zsh
+```
+
+Or if you installed via TPM:
+
+```zsh
+source ~/.tmux/plugins/tmux-session-dots/bell-notify.zsh
+```
+
+**The full workflow:**
+
+1. You kick off a long build or test run in one session
+2. You switch to another session and keep working
+3. When the command finishes, the bell fires — the dot for that session switches to `◉`
+4. You see it in the status bar and switch back when you're ready
+
+No polling, no blocking — you get a passive visual cue the moment the work is done.
+
+tmux's `monitor-bell` is on by default, so no extra tmux config is needed. You can also emit a bell manually with `printf "\a"` from any script.
 
 ## Recommended: Quick Session Switching
 
