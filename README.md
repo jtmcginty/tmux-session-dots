@@ -15,7 +15,7 @@ If you use multiple tmux sessions and frequently switch between them (e.g., with
 
 Choose any characters for the active and inactive states:
 
-| Active | Inactive | Bell | Preview | Preview (with bell) |
+| Active | Inactive | Bell (optional) | Preview | Preview (with bell) |
 |--------|----------|------|---------|---------------------|
 | `●` | `○` | `◉` | `○●○○` (default) | `●◉○○` |
 | `•` | `·` | `✦` | `·•··` ⭐ | `•··✦` |
@@ -28,7 +28,6 @@ Choose any characters for the active and inactive states:
 | 🌩️ | ☁️ | ⛈️ | `🌩️☁️☁️☁️` `☁️🌩️☁️☁️` `☁️☁️🌩️☁️` `☁️☁️☁️🌩️` | `🌩️⛈️☁️☁️` |
 | 🔥 | 🪵 | 💥 | `🔥🪵🪵🪵` `🪵🔥🪵🪵` `🪵🪵🔥🪵` `🪵🪵🪵🔥` | `🔥💥🪵🪵` |
 | 👄 | 👁️ | 👀 | `👄👁️👁️👁️` `👁️👄👁️👁️` `👁️👁️👄👁️` `👁️👁️👁️👄` | `👄👀👁️👁️` |
-| `(*)` | `( )` | `(!)` | `(*)( )( )( )` `( )(*)( )( )` `( )( )(*)( )` `( )( )( )(*)` | `(*)(!)( )( )` |
 
 ⭐ author's preferred setup
 
