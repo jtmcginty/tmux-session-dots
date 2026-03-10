@@ -123,7 +123,9 @@ With bell enabled, three states are shown: active (`●`), bell (`◉`), inactiv
 
 #### Automatic bell on long-running commands (recommended)
 
-The plugin ships with `bell-notify.zsh` — a small zsh snippet that fires a terminal bell whenever a command takes longer than 10 seconds. Source it in your `~/.zshrc`:
+The plugin ships with `bell-notify.zsh` — a small zsh snippet that fires a terminal bell whenever a command takes longer than 10 seconds. **zsh only** — bash users can achieve the same with [`bash-preexec`](https://github.com/rcaloras/bash-preexec).
+
+Source it in your `~/.zshrc`:
 
 ```zsh
 # ~/.zshrc
