@@ -22,16 +22,23 @@ set_tmux_option() {
 
 do_interpolation() {
     local all_interpolated="$1"
-    local dot_color active inactive bell_enabled bell
+    local dot_color active_color active inactive bell_enabled bell show_number show_name separator
     dot_color=$(get_tmux_option "@session-dots-color" "#f5c2e7")
+    active_color=$(get_tmux_option "@session-dots-active-color" "$dot_color")
     active=$(get_tmux_option "@session-dots-active" "●")
     inactive=$(get_tmux_option "@session-dots-inactive" "○")
     bell_enabled=$(get_tmux_option "@session-dots-bell-enabled" "false")
     bell=$(get_tmux_option "@session-dots-bell" "◉")
+    show_number=$(get_tmux_option "@session-dots-show-number" "false")
+    show_name=$(get_tmux_option "@session-dots-show-name" "false")
+    separator=$(get_tmux_option "@session-dots-separator" "")
     local placeholder="\#{session_dots}"
     local bell_arg=""
     [ "$bell_enabled" = "true" ] && bell_arg="$bell"
-    local script="#[fg=$dot_color]#($CURRENT_DIR/scripts/session-dots.sh '#S' '$active' '$inactive' '$bell_arg')#[default]"
+    # Colors go inside #(...), whose command tmux format-expands first: escape '#'
+    # so hex values like "#F5c2e7" aren't read as aliases (#F = window flags)
+    local color_arg="${dot_color//#/##}" active_color_arg="${active_color//#/##}"
+    local script="#[fg=$dot_color]#($CURRENT_DIR/scripts/session-dots.sh '#S' '$active' '$inactive' '$bell_arg' '$show_number' '$show_name' '$separator' '$active_color_arg' '$color_arg')#[default]"
     all_interpolated=${all_interpolated//$placeholder/$script}
     echo "$all_interpolated"
 }

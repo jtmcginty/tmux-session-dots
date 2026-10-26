@@ -44,6 +44,7 @@ Want to try a combination before committing? Use the included preview script:
 
 ```bash
 ./scripts/preview.sh "▶" "▷"
+./scripts/preview.sh "●" "○" "◉" --all-numbers --name --separator " "
 ```
 
 ## Installation
@@ -103,12 +104,69 @@ set -g @session-dots-active "▶"
 set -g @session-dots-inactive "▷"
 ```
 
+### Separator (optional)
+
+String placed between session entries. Empty by default; set it when labels make entries run together:
+
+```bash
+set -g @session-dots-separator " "
+# → ●:1:work ○:2 ◉:3
+```
+
+
+### Show session number (optional)
+
+Append each session's position number, rendered as `indicator:number` — handy for pairing with `switch-client -t <n>` workflows or prefix-based session indexing:
+
+```bash
+set -g @session-dots-separator " "
+set -g @session-dots-show-number "true"  # active session only
+set -g @session-dots-show-number "all"   # every session
+```
+
+| Value | Output |
+|-------|--------|
+| `true` | `●:1 ○ ○` |
+| `all` | `●:1 ○:2 ◉:3` |
+
+### Show session name (optional)
+
+Append session names after their indicators, rendered as `indicator:name`:
+
+```bash
+set -g @session-dots-separator " "
+set -g @session-dots-show-name "true"  # active session only
+set -g @session-dots-show-name "all"   # every session
+```
+
+| Value | Output |
+|-------|--------|
+| `true` | `●:work ○ ○` |
+| `all` | `●:work ○:dotfiles ◉:music` |
+
+### Combining number and name
+
+Both options compose as `<indicator>:<number>:<name>` and can be set independently. Both work together with the bell indicator.
+
+```bash
+set -g @session-dots-separator " "
+set -g @session-dots-show-number "all"
+set -g @session-dots-show-name "true"
+# → ●:1:work ○:2 ◉:3
+```
+
 ### Color
 
 Default is Catppuccin pink (`#f5c2e7`). Customize with:
 
 ```bash
 set -g @session-dots-color "#89b4fa"  # Catppuccin blue
+```
+
+To highlight the current session, give its indicator, number and name a separate color (defaults to `@session-dots-color`):
+
+```bash
+set -g @session-dots-active-color "#f9e2af"  # Catppuccin yellow
 ```
 
 ### Bell indicator (optional)
@@ -159,7 +217,31 @@ bind-key -n M-[ switch-client -p
 bind-key -n M-] switch-client -n
 ```
 
-The indicator updates instantly as you switch.
+If you prefer jumping quickly, these mappings below are optional.
+
+```bash
+# command mode settings
+bind '^b' switch-client -T command-mode
+
+# session jump -- 1-9 match the numbers shown by tmux-session-dots (list-sessions order);
+# '##' escapes the format so run-shell passes it through to list-sessions
+bind -T command-mode '1' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 1p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '2' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 2p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '3' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 3p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '4' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 4p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '5' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 5p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '6' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 6p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '7' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 7p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '8' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 8p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+bind -T command-mode '9' run-shell 'id=$(tmux list-sessions -F "##{session_id}" | sed -n 9p); [ -n "$id" ] && tmux switch-client -t "$id" || true'
+
+# jump to the previous (alternate) session
+bind -T command-mode '^' switch-client -l
+
+```
+
+
+Th indicator updates instantly as you switch.
 
 ## How it works
 
